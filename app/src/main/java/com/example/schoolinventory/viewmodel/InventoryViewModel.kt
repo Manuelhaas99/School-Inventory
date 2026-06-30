@@ -5,4 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class InventoryViewModel(): ViewModel() {
 
+
+
+
 }

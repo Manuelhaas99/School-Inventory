@@ -8,4 +8,12 @@ object AppScreens {
 
   @Serializable
   object MainScreen
+
+  @Serializable
+  object AddInventory
+
+  @Serializable
+  object ItemDetailScreen
+
+
 }

@@ -11,16 +11,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavController
+import com.example.schoolinventory.navigation.AppScreens
 
 @Composable
 fun ExtendedFab(
   onClick: () -> Unit,
-  modifier: Modifier = Modifier
+  text: String,
+  icon: ImageVector,
+  modifier: Modifier = Modifier,
 ){
   ExtendedFloatingActionButton(
-    onClick = {},
-    icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
-    text = { Text("Agregar") },
+    onClick = onClick ,
+    icon = { Icon(imageVector = icon, contentDescription = null) },
+    text = { Text(text) },
     modifier = modifier,
   )
 }

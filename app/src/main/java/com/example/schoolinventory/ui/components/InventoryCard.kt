@@ -1,6 +1,7 @@
 package com.example.schoolinventory.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,12 +20,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.schoolinventory.R
+import com.example.schoolinventory.navigation.AppScreens
 
 @Composable
-fun InventoryCard() {
+fun InventoryCard(
+  navController: NavController
+) {
   Card(
     modifier = Modifier
+      .clickable(
+        onClick = { navController.navigate(AppScreens.ItemDetailScreen)}
+      )
       .fillMaxWidth()
       .padding(8.dp)
       .wrapContentHeight(),
