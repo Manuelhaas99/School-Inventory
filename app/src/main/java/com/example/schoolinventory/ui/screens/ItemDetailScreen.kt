@@ -1,7 +1,5 @@
 package com.example.schoolinventory.ui.screens
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.LocalOffer
@@ -23,18 +20,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.schoolinventory.R
+import com.example.schoolinventory.data.model.ItemState
 import com.example.schoolinventory.navigation.AppScreens
-import com.example.schoolinventory.ui.components.ExtendedFab
 import com.example.schoolinventory.ui.components.InfoCard
 import com.example.schoolinventory.ui.components.InfoChip
 import com.example.schoolinventory.ui.components.PrimaryButton
@@ -47,6 +45,8 @@ fun ItemDetailScreen(
   viewModel: InventoryViewModel = viewModel(),
   navController: NavController,
 ) {
+  val selectItem by viewModel.selectItem.collectAsState()
+
   Scaffold(
     topBar = {
       TopAppBar(
@@ -80,7 +80,7 @@ fun ItemDetailScreen(
     bottomBar = {
       PrimaryButton(
         onClick = {},
-        text = "Export PDF",
+        text = "Exportar PDF",
         icon = Icons.Outlined.PictureAsPdf,
         modifier = Modifier
           .fillMaxWidth()
@@ -95,15 +95,15 @@ fun ItemDetailScreen(
         .padding(horizontal = 16.dp),
     ) {
 
-      Image(
+      AsyncImage(
+        model = selectItem?.imagePath ?: R.drawable.ic_launcher_background,
+        contentDescription = null,
         modifier = Modifier
           .fillMaxWidth()
           .padding(top = 16.dp, bottom = 8.dp)
           .aspectRatio(4f / 3f)
           .clip(MaterialTheme.shapes.large),
         contentScale = ContentScale.Crop,
-        painter = painterResource(id = R.drawable.ic_launcher_background),
-        contentDescription = stringResource(id = R.string.app_name)
       )
       Row(
         modifier = Modifier
@@ -113,7 +113,7 @@ fun ItemDetailScreen(
         verticalAlignment = Alignment.CenterVertically
       ) {
         Text(
-          text = "Compound Binocular Microscope dfgd gdgdfgdgdgdgdggdf",
+          text = selectItem?.description ?: "",
           style = MaterialTheme.typography.headlineMedium,
           color = MaterialTheme.colorScheme.onBackground,
           maxLines = 2,
@@ -122,6 +122,7 @@ fun ItemDetailScreen(
             .weight(1f),
         )
         QuantityBadge(
+          quantityText = selectItem?.quantity.toString(),
           modifier = Modifier.padding(start = 12.dp)
         )
       }
@@ -137,19 +138,24 @@ fun ItemDetailScreen(
           modifier = Modifier.size(16.dp)
         )
         Text(
-          text = "Olympus",
+          text = selectItem?.description ?: "",
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
       }
       InfoChip(
+        label = (selectItem?.state ?: ItemState.UNSELECTED) as String,
         modifier = Modifier
           .padding(vertical = 4.dp),
       )
       InfoCard(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(top = 8.dp)
+          .padding(top = 8.dp),
+        serieText = selectItem?.serie ?: "",
+        quantityText = selectItem?.quantity.toString(),
+        conditionText = (selectItem?.state ?: ItemState.UNSELECTED) as String,
+        observationText = (selectItem?.observation ?: "")
       )
     }
   }

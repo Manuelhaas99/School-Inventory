@@ -16,6 +16,7 @@ import kotlin.random.Random
 
 @Composable
 fun QuantityBadge(
+  quantityText: String,
   modifier: Modifier = Modifier
 ){
   Card(
@@ -33,13 +34,13 @@ fun QuantityBadge(
       verticalArrangement = Arrangement.Center,
     ) {
       Text(
-        text = "12",
+        text = quantityText,
         style = MaterialTheme.typography.headlineMedium,
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.onBackground,
       )
       Text(
-        text = "in stock",
+        text = "existentes",
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
       )

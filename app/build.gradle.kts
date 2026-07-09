@@ -1,8 +1,8 @@
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
-  id("org.jetbrains.kotlin.plugin.serialization") version "2.4.0"
   alias(libs.plugins.google.ksp)
+  id("org.jetbrains.kotlin.plugin.serialization") version "2.4.0"
 }
 
 android {
@@ -39,24 +39,41 @@ android {
 }
 
 dependencies {
+//Coil
+  implementation("io.coil-kt:coil-compose:2.7.0")
 
-  implementation("androidx.compose.ui:ui-text-google-fonts:1.11.3")
-  implementation(libs.androidx.compose.foundation.layout)
+// Room
   implementation(libs.androidx.room.runtime)
   implementation(libs.androidx.room.ktx)
+  implementation(libs.androidx.ui)
   ksp(libs.androidx.room.compiler)
+
+  // Google Fonts
+  implementation("androidx.compose.ui:ui-text-google-fonts:1.11.4")
+
+  // Icons
   implementation("androidx.compose.material:material-icons-extended:1.7.8")
-  implementation(libs.androidx.material3)
+
+  // Serialization
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
+
+  // Compose BOM — controla versiones automáticamente
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.compose.material3)
   implementation(libs.androidx.compose.ui)
   implementation(libs.androidx.compose.ui.graphics)
   implementation(libs.androidx.compose.ui.tooling.preview)
+  implementation(libs.androidx.compose.foundation.layout)
+  implementation(libs.androidx.compose.runtime)
+  implementation(libs.androidx.material3)
+
+  // Core
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.navigation.compose)
+
+  // Testing
   testImplementation(libs.junit)
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)

@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun InfoChip(
+  label: String,
   modifier: Modifier = Modifier
 ) {
   AssistChip(
@@ -21,8 +22,8 @@ fun InfoChip(
     modifier = modifier,
     label = {
       Text(
-        "Good Condition",
-        style = MaterialTheme.typography.bodyMedium, // más grande que labelMedium
+        text = label,
+        style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
           .padding(vertical = 8.dp),
       )

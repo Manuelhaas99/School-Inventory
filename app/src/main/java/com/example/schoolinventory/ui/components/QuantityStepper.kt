@@ -27,7 +27,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun QuantityStepper(
   quantity: Int,
-  onQuantityChange: (Int) -> Unit,
+  onIncrement: () -> Unit,
+  onDecrement: () -> Unit,
   modifier: Modifier = Modifier
 ) {
   Row(
@@ -47,7 +48,7 @@ fun QuantityStepper(
     }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
       FilledIconButton(
-        onClick = { onQuantityChange((quantity - 1).coerceAtLeast(0)) },
+        onClick = { onDecrement() },
         shape = RoundedCornerShape(20.dp),
         colors = IconButtonDefaults.filledIconButtonColors(
           containerColor = MaterialTheme.colorScheme.surface,
@@ -58,7 +59,7 @@ fun QuantityStepper(
       ) { Icon(Icons.Rounded.Remove, "Decrease", modifier = Modifier.size(24.dp)) }
 
       FilledIconButton(
-        onClick = { onQuantityChange(quantity + 1) },
+        onClick = { onIncrement() },
         shape = RoundedCornerShape(20.dp),
         colors = IconButtonDefaults.filledIconButtonColors(
           containerColor = MaterialTheme.colorScheme.onSurface,

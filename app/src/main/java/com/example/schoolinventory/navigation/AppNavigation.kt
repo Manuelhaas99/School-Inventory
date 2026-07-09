@@ -40,7 +40,7 @@ fun AppNavigation(
     composable<AppScreens.ItemDetailScreen> {
       ItemDetailScreen(
         viewModel = viewModel,
-        navController
+        navController,
       )
     }
   }

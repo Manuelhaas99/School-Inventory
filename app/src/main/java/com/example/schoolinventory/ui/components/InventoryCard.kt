@@ -1,6 +1,6 @@
 package com.example.schoolinventory.ui.components
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,91 +8,117 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import com.example.schoolinventory.R
-import com.example.schoolinventory.navigation.AppScreens
+import androidx.compose.ui.unit.sp
+import com.example.schoolinventory.data.model.Inventory
+import com.example.schoolinventory.ui.utils.getItemIcon
 
 @Composable
 fun InventoryCard(
-  navController: NavController
+  item: Inventory,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
+
+
   Card(
-    modifier = Modifier
-      .clickable(
-        onClick = { navController.navigate(AppScreens.ItemDetailScreen)}
-      )
-      .fillMaxWidth()
-      .padding(8.dp)
-      .wrapContentHeight(),
+    modifier = modifier
+      .clickable { onClick() }
+      .padding(4.dp),
+    shape = MaterialTheme.shapes.large,
+    colors = CardDefaults.cardColors(
+      containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+    ),
+    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
   ) {
-    Row(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(12.dp),
-      verticalAlignment = Alignment.CenterVertically,
+    Column(
+      modifier = Modifier.padding(12.dp),
+      verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-      Box(
-        modifier = Modifier
-          .weight(0.5f),
-        contentAlignment = Alignment.Center,
+
+      Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Top,
       ) {
-        Image(
-          painter = painterResource(id = R.drawable.ic_launcher_background),
-          contentDescription = stringResource(id = R.string.app_name)
-        )
+        Box(
+          modifier = Modifier
+            .size(48.dp)
+            .background(
+              color = MaterialTheme.colorScheme.surface,
+              shape = MaterialTheme.shapes.medium,
+            ),
+          contentAlignment = Alignment.Center,
+        ) {
+          Icon(
+            imageVector = getItemIcon(item.description),
+            contentDescription = null,
+            modifier = Modifier.size(26.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+          )
+        }
+        ConditionBadge(condition = item.state)
       }
-      Column(
-        modifier = Modifier
-          .weight(1f)
-          .padding(horizontal = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(2.dp)
-      ) {
+
+      Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Text(
-          text = "Descripcion",
-          style = MaterialTheme.typography.titleSmall,
-          textAlign = TextAlign.Center,
+          text = item.description,
+          style = MaterialTheme.typography.titleMedium,
+          fontWeight = FontWeight.Bold,
           maxLines = 2,
           overflow = TextOverflow.Ellipsis,
+          modifier = Modifier
+            .fillMaxWidth()
         )
         Text(
-          "cantidad: 2",
+          text = item.brand,
           style = MaterialTheme.typography.bodySmall,
           color = MaterialTheme.colorScheme.onSurfaceVariant,
-          textAlign = TextAlign.Center,
-        )
-        Text(
-          "Marca",
-          style = MaterialTheme.typography.bodySmall,
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
-          textAlign = TextAlign.Center,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          modifier = Modifier
+            .fillMaxWidth()
         )
       }
-      Column(
-        modifier = Modifier
-          .weight(0.5f)
-          .padding(horizontal = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+
+      Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Bottom,
       ) {
+        Column {
+          Text(
+            text = item.quantity.toString(),
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold,
+          )
+          Text(
+            text = "Existentes",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            letterSpacing = 1.sp,
+          )
+        }
         Text(
-          "Estado",
-          textAlign = TextAlign.Center
+          text = item.serie,
+          style = MaterialTheme.typography.labelSmall,
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          modifier = Modifier
+            .fillMaxWidth()
         )
-        Text("Serie")
       }
     }
   }

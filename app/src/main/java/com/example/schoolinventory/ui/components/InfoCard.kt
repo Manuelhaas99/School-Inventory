@@ -6,7 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Notes
+import androidx.compose.material.icons.filled.HealthAndSafety
+import androidx.compose.material.icons.filled.Notes
 import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material.icons.outlined.Inventory2
 import androidx.compose.material.icons.outlined.Tag
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
@@ -17,11 +21,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.schoolinventory.viewmodel.InventoryViewModel
 
 @Composable
 fun InfoCard(
+  serieText: String,
+  quantityText: String,
+  conditionText: String,
+  observationText: String,
   modifier: Modifier = Modifier,
 ) {
   Card(
@@ -49,13 +55,13 @@ fun InfoCard(
           verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
           Text(
-            text = "Series",
+            text = "Numero de serie",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
           )
 
           Text(
-            text = "CX23-204871",
+            text = serieText,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
           )
@@ -75,7 +81,7 @@ fun InfoCard(
         horizontalArrangement = Arrangement.spacedBy(16.dp)
       ) {
         Icon(
-          imageVector = Icons.Outlined.Tag,
+          imageVector = Icons.Outlined.Inventory2,
           contentDescription = ""
         )
         Column(
@@ -83,13 +89,13 @@ fun InfoCard(
           verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
           Text(
-            text = "Quantity",
+            text = "Cantidad",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
           )
 
           Text(
-            text = "12 units",
+            text = quantityText,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
           )
@@ -109,7 +115,7 @@ fun InfoCard(
         horizontalArrangement = Arrangement.spacedBy(16.dp)
       ) {
         Icon(
-          imageVector = Icons.Default.StarBorder,
+          imageVector = Icons.Default.HealthAndSafety,
           contentDescription = ""
         )
         Column(
@@ -117,13 +123,47 @@ fun InfoCard(
           verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
           Text(
-            text = "Condition",
+            text = "Condición",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
           )
 
           Text(
-            text = "Good",
+            text = conditionText,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+          )
+        }
+      }
+
+      HorizontalDivider(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        color = MaterialTheme.colorScheme.outlineVariant,
+      )
+
+      Row(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+      ) {
+        Icon(
+          imageVector = Icons.Default.Notes,
+          contentDescription = ""
+        )
+        Column(
+          modifier = Modifier,
+          verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+          Text(
+            text = "Observaciones",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+          )
+
+          Text(
+            text = observationText,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
           )
